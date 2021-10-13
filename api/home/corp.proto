@@ -1,0 +1,47 @@
+syntax = 'proto3';
+package xd.home;
+import "google/api/annotations.proto";
+
+import "google/protobuf/empty.proto";
+option go_package = "pkg/alex/home";
+
+service CropService {
+  //扫码
+  rpc getCorpTicket(GetCorpTicketRequest) returns (GetCorpTicketResponse) {
+    option (google.api.http) = {
+      get:"/api/v1/getCorpTicket"
+    };
+  };
+
+  rpc postCorpTicket(PostCorpTicketRequest) returns (PostCorpTicketResponse){
+    option (google.api.http) = {
+      post:"/api/v1/postCorpTicket" body: "*"
+    };
+  }
+}
+message PostCorpTicketRequest{
+  string name = 1;
+  int32 age = 2;
+}
+
+message PostCorpTicketResponse{
+  int32 code = 1;
+  string message = 2;
+  google.protobuf.Empty data = 3;
+}
+
+
+
+message GetCorpTicketRequest{
+  string url = 1;
+  string name = 2;
+}
+
+
+message GetCorpTicketResponse{
+  int32 timestamp = 1 ;
+  string noncestr = 2;
+  string corpId = 3;
+  string sign = 4;
+  int32 agentid = 5;
+}
